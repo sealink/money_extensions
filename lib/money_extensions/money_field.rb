@@ -95,3 +95,18 @@ class Numeric
     Money.new((self * 100).round, currency)
   end
 end
+
+
+class Array
+  # Returns sum as a money - and returns 0 for empty arrays
+  def total_money
+    empty? ? Money.new(0) : inject(:+)
+  end
+end
+
+class Fixnum
+  #Returns self as a money (treated as cents)
+  def total_money
+    zero? ? Money.new(0) : Money.new(self)
+  end
+end

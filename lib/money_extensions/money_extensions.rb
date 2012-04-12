@@ -33,23 +33,23 @@ class Money
       
       results = params.map{|p| p.is_a?(Money) ? p.cents : p}
 
-      total = results.sum
+      total = results.inject(:+)
       if total.zero?
         return Array.new(results.size, Money.new(0)) if self.zero?
         raise ArgumentError, "Total of ratios should not be zero! You sent in: #{params.inspect}" 
       end
 
-      if self < 0.to_money
-        results.map!{|ratio| Money.new( ( (self.cents * (ratio.to_f / total)).ceil))}
-      else
+      if self.positive?
         results.map!{|ratio| Money.new( ( (self.cents * (ratio.to_f / total)).floor))}
+      else
+        results.map!{|ratio| Money.new( ( (self.cents * (ratio.to_f / total)).ceil))}
       end
     else
       raise "Either a fixnum or array has to be passed in for splitting money"
     end
     
     #find the rounding error and apply it to the biggest value share.
-    biggest_value_index = results.index(self < 0.to_money ? results.min : results.max)
+    biggest_value_index = results.index(positive? ? results.max : results.min)
     results[biggest_value_index] += self - results.total_money
     
     return results
@@ -92,25 +92,23 @@ class Money
       rules << :signed if cents < 0
       
       if rules.include?(:signed)
-        formatted <<  if cents >= 0
+        formatted <<  if cents > 0
           '+'
         elsif cents < 0
           '-'
+        else
+          ''
         end
       end
       
-      amount = ''
-      if rules.include?(:no_cents)
-        amount = "$%d" % (cents.abs.to_f / 100)
-      else
-        amount = "$%.2f" % (cents.abs.to_f / 100)
-      end
+      format_string = rules.include?(:no_cents) ? "$%d" : "$%.2f"
+      amount = format_string % (cents.abs.to_f / 100)
       amount.gsub!('.', options[:separator])
       amount.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{options[:delimiter]}")
       formatted << amount
       
       formatted << "</span>" if html_wrap
-    end.html_safe
+    end
   end
 
   def direction_class
@@ -146,21 +144,22 @@ class Money
   # => 500
   def round(round_to_cents = 100, direction = :nearest)
     round_to_cents = 100 if round_to_cents.nil?
-    case direction
+    case direction.to_sym
     when :nearest
-      @cents = (@cents + round_to_cents/2) / round_to_cents * round_to_cents
+      cents = (@cents + round_to_cents/2) / round_to_cents * round_to_cents
     when :up
-      @cents = (@cents + round_to_cents) / round_to_cents * round_to_cents
+      cents = (@cents + round_to_cents) / round_to_cents * round_to_cents
     when :down
-      @cents = (@cents) / round_to_cents * round_to_cents
+      cents = (@cents) / round_to_cents * round_to_cents
     else
     end
-    self
+    Money.new(cents)
   end
 
+  
   def abs
     if cents >= 0
-      self
+      self.clone
     else
       Money.new(0 - cents)
     end
