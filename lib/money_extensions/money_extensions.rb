@@ -173,3 +173,36 @@ class Money
     cents < 0
   end
 end
+
+
+class Numeric
+  # Converts this numeric to a Money object in the default currency. It
+  # multiplies the numeric value by 100 and treats that as cents.
+  #
+  # NOTE!!!
+  # This is overriden as per the default Money .to_money because it assumes
+  # a different default currency...
+  #
+  # 100.to_money => #<Money @cents=10000>
+  # 100.37.to_money => #<Money @cents=10037>
+  # require 'bigdecimal'
+  # BigDecimal.new('100').to_money => #<Money @cents=10000>
+  def to_money(currency = nil)
+    Money.new((self * 100).round, currency)
+  end
+end
+
+
+class Array
+  # Returns sum as a money - and returns 0 for empty arrays
+  def total_money
+    empty? ? Money.new(0) : inject(:+)
+  end
+end
+
+class Fixnum
+  #Returns self as a money (treated as cents)
+  def total_money
+    zero? ? Money.new(0) : Money.new(self)
+  end
+end
