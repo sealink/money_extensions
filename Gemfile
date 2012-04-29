@@ -8,5 +8,4 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'sqlite3'
-  gem 'activerecord', '~> 3.0'
 end
