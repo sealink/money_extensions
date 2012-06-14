@@ -20,16 +20,23 @@ module MoneyField
                              :mapping => [field_name, 'iso_code'],
                              :allow_nil => true,
                              :constructor => Proc.new{|value| Money::Currency.new(value) unless value.blank?}
-                           
-      named_scope :for_currency, lambda{ |currency|
-        {:conditions => {:currency_iso_code => currency.iso_code}}
-      }
+
+      if Rails.version > '3'
+        scope :for_currency, lambda{ |currency|
+          where(:currency_iso_code => currency.iso_code)
+        }
+      else
+        named_scope :for_currency, lambda{ |currency|
+          {:conditions => {:currency_iso_code => currency.iso_code}}
+        }
+      end
 
       if options[:default]
         before_validation :set_default_currency
         class_eval <<-METHOD
           def set_default_currency
             self.currency ||= EnabledCurrency.base_currency
+            true
           end
         METHOD
       end

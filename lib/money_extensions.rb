@@ -7,5 +7,6 @@ module MoneyExtensions
 
   require 'active_record'
   require 'money_extensions/money_field'
+  ActiveRecord::Base.send(:include, MoneyField)
 end
 
