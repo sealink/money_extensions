@@ -62,6 +62,17 @@ module MoneyField
     end
 
 
+    def money(*fields)
+      fields.each do |field|
+        class_eval <<-METHOD
+          def #{field}
+            Money.new(#{field}_in_cents)
+          end
+        METHOD
+      end
+    end
+
+
     def money_fields(*attributes)
       opts = attributes.extract_options!
       attributes.each {|a| self.money_field(a, opts)}
