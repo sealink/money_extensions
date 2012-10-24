@@ -8,4 +8,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'sqlite3'
+
+  gem 'activerecord'
 end

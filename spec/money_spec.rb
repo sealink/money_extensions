@@ -37,6 +37,8 @@ describe Money do
     money.split_between([1,2,2,5]).should == [10,20,20,50].map{ |i| Money.new(i)}
     money.split_between([1,2]).should == [33,67].map{ |i| Money.new(i)} 
 
+    
+
     money_negative = Money.new(-100)
     money_negative.split_between(3).should == [-32,-34,-34].map{ |i| Money.new(i)}
     money_negative.split_between([1,2,2,5]).should == [-10,-20,-20,-50].map{ |i| Money.new(i)}
@@ -45,6 +47,18 @@ describe Money do
     money_zero = Money.new(0)
     money_zero.split_between([1,2]).should == Array.new(2,money_zero)
 
+  end
+
+  it "should round split amounts" do
+    Money.new(200).split_between([81, 40, 40]).should == [100, 50, 50].map{ |i| Money.new(i) }
+  end
+
+  it "should assign rounding to max absolute" do
+    # the -8 is the largest ABSOLUTE number... 
+    #   -8 / 3 == -2.66666 = 2.67
+    #   it receives the rounding of +1c
+    Money.new(100).split_between([1,    -8,   7,   3]).should ==
+                                 [33, -266, 233, 100].map{ |i| Money.new(i) }
   end
 
   it "should return a nice, Big Decimal if so converted" do

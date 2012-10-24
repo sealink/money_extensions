@@ -46,16 +46,15 @@ module MoneyExtensions
           raise ArgumentError, "Total of ratios should not be zero! You sent in: #{params.inspect}" 
         end
 
-        method = self.positive? ? :floor : :ceil
         results.map! do |ratio|
-          ::Money.new( (self.cents * (ratio.to_f / total)).send(method) )
+          ::Money.new( (self.cents * (ratio.to_f / total)).round )
         end
       else
         raise "Either a fixnum or array has to be passed in for splitting money"
       end
 
-      #find the rounding error and apply it to the biggest value share.
-      biggest_value_index = results.index(positive? ? results.max : results.min)
+      # Distribute rounding to max absolute to avoid a $0 amount getting the rounding
+      biggest_value_index = results.index(results.max_by(&:abs))
       results[biggest_value_index] += self - results.total_money
 
       return results
