@@ -17,6 +17,14 @@ if ENV['COVERAGE']
     add_filter '/spec/'
     add_group 'lib', 'lib'
   end
+  SimpleCov.at_exit do
+    SimpleCov.result.format!
+    percent = SimpleCov.result.covered_percent
+    unless percent >= 80
+      puts "Coverage must be above 80%. It is #{"%.2f" % percent}%"
+      Kernel.exit(1)
+    end
+  end
 end
 
 require 'money_extensions'
