@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'money_extensions'
   s.version           = '0.0.1'
-  s.date              = '2012-04-29'
+  s.date              = '2013-05-31'
   s.rubyforge_project = 'money_extensions'
 
   ## Make sure your summary is short. The description may be as long
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.authors  = ["Michael Noack", "Alessandro Berardi"]
   s.email    = 'development@travellink.com.au'
   s.homepage = 'http://github.com/sealink/money_extensions'
+  s.license  = 'MIT'
 
   ## This gets added to the $LOAD_PATH so that 'lib/NAME.rb' can be required as
   ## require 'NAME.rb' or'/lib/NAME/file.rb' can be as require 'NAME/file.rb'
