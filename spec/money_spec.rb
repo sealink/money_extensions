@@ -110,9 +110,15 @@ describe Money do
     money_negative.format(:signed).should == "-$1.00"
     money_zero.format(:signed).should == "$0.00"
 
-    "1.50".to_money.format(:no_cents).should == "$1"
-
     "1.50".to_money.format(:separator => '~').should == "$1~50"
+  end
+
+  it 'should format cents where appropriate' do
+    '1.50'.to_money.format(:no_cents).should == '$1'
+    '1.00'.to_money.format(:no_cents).should == '$1'
+
+    '1.50'.to_money.format(:hide_zero_cents).should == '$1.50'
+    '1.00'.to_money.format(:hide_zero_cents).should == '$1'
   end
 
 end

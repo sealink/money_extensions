@@ -106,7 +106,9 @@ module MoneyExtensions
           end
         end
 
-        format_string = rules.include?(:no_cents) ? "$%d" : "$%.2f"
+        no_cents = rules.include?(:no_cents) ||
+          (rules.include?(:hide_zero_cents) && cents % 100 == 0)
+        format_string = no_cents ? "$%d" : "$%.2f"
         amount = format_string % (cents.abs.to_f / 100)
         amount.gsub!('.', options[:separator])
         amount.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{options[:delimiter]}")
