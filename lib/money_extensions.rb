@@ -2,10 +2,13 @@ module MoneyExtensions
   VERSION = '0.0.1'
 
   require 'money'
-  require 'money_extensions/money_extensions'
+  require 'money_extensions/array'
   require 'money_extensions/big_decimal'
-
+  require 'money_extensions/fixnum'
+  require 'money_extensions/extensions'
   require 'money_extensions/money_field'
+  require 'money_extensions/numeric'
+  require 'money_extensions/string'
 
   # TODO: Defer requiring the active record extension to who needs it
   if Module.const_defined?('ActiveRecord')
