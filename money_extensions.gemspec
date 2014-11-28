@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'money_extensions'
   s.version           = '0.0.1'
-  s.date              = '2013-05-31'
+  s.date              = '2014-11-28'
   s.rubyforge_project = 'money_extensions'
 
   ## Make sure your summary is short. The description may be as long
@@ -65,10 +65,16 @@ Gem::Specification.new do |s|
     Rakefile
     gemfiles/rails2.gemfile
     gemfiles/rails3.gemfile
+    gemfiles/rails4.gemfile
     lib/money_extensions.rb
+    lib/money_extensions/active_record/extensions.rb
+    lib/money_extensions/array.rb
     lib/money_extensions/big_decimal.rb
-    lib/money_extensions/money_extensions.rb
+    lib/money_extensions/extensions.rb
+    lib/money_extensions/fixnum.rb
     lib/money_extensions/money_field.rb
+    lib/money_extensions/numeric.rb
+    lib/money_extensions/string.rb
     money_extensions.gemspec
     rails/init.rb
     spec/big_decimal_spec.rb
