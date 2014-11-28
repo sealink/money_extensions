@@ -20,6 +20,5 @@ describe "ActiveRecord::Base" do
     @model.price_in_cents.should == 500
     @model.cost.cents.should == 300
   end
-
 end
 

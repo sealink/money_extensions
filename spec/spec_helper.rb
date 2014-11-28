@@ -27,6 +27,7 @@ if ENV['COVERAGE']
   end
 end
 
+require 'active_record'
 require 'money_extensions'
 
 RSpec.configure do |config|

@@ -79,14 +79,14 @@ describe Money do
     money_negative = Money.new(-100)
     money_zero = Money.new(0)
 
-    money_positive.positive?.should be_true
-    money_positive.negative?.should be_false
+    money_positive.positive?.should == true
+    money_positive.negative?.should == false
 
-    money_negative.positive?.should be_false
-    money_negative.negative?.should be_true
+    money_negative.positive?.should == false
+    money_negative.negative?.should == true
 
-    money_zero.positive?.should be_false
-    money_zero.negative?.should be_false
+    money_zero.positive?.should == false
+    money_zero.negative?.should == false
 
     money_positive.abs.should == money_positive
     money_negative.abs.should == money_positive
