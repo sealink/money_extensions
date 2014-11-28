@@ -1,1 +1,1 @@
-ActiveRecord::Base.send(:include, MoneyField)
+::ActiveRecord::Base.send(:include, ActiveRecord::Extensions)

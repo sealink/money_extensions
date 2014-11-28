@@ -5,8 +5,12 @@ module MoneyExtensions
   require 'money_extensions/money_extensions'
   require 'money_extensions/big_decimal'
 
-  require 'active_record'
   require 'money_extensions/money_field'
-  ActiveRecord::Base.send(:include, MoneyField)
+
+  # TODO: Defer requiring the active record extension to who needs it
+  if Module.const_defined?('ActiveRecord')
+    require 'money_extensions/active_record/extensions'
+  end
+
 end
 
