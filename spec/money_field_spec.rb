@@ -15,10 +15,11 @@ describe "ActiveRecord::Base" do
     money_fields :price, :cost
   end
 
+  let(:model) { Model.create!(:price => 5.to_money, :cost_in_cents => 300) }
+
   it "should convert to from money and underlying cents object" do
-    @model = Model.create!(:price => 5.to_money, :cost_in_cents => 300)
-    @model.price_in_cents.should == 500
-    @model.cost.cents.should == 300
+    expect(model.price_in_cents).to eq 500
+    expect(model.cost.cents).to eq 300
   end
 end
 
