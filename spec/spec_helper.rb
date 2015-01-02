@@ -8,7 +8,9 @@
 require 'rubygems'
 require 'bundler/setup'
 
-if ENV['COVERAGE']
+MINIMUM_COVERAGE = 80
+
+unless ENV['COVERAGE'] == 'off'
   require 'simplecov'
   require 'simplecov-rcov'
   require 'coveralls'
@@ -26,8 +28,8 @@ if ENV['COVERAGE']
   SimpleCov.at_exit do
     SimpleCov.result.format!
     percent = SimpleCov.result.covered_percent
-    unless percent >= 80
-      puts "Coverage must be at least 80%. It is #{"%.2f" % percent}%"
+    unless percent >= MINIMUM_COVERAGE
+      puts "Coverage must be above #{MINIMUM_COVERAGE}%. It is #{"%.2f" % percent}%"
       Kernel.exit(1)
     end
   end
@@ -37,7 +39,6 @@ require 'active_record'
 require 'money_extensions'
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 end
