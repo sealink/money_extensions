@@ -2,8 +2,9 @@ Money Extensions
 ================
 
 [![Build Status](https://travis-ci.org/sealink/money_extensions.png?branch=master)](https://travis-ci.org/sealink/money_extensions)
-[![Build Status](https://gemnasium.com/sealink/money_extensions.png?travis)](https://gemnasium.com/sealink/money_extensions)
-[![Build Status](https://codeclimate.com/github/sealink/money_extensions.png)](https://codeclimate.com/github/sealink/money_extensions)
+[![Coverage Status](https://coveralls.io/repos/sealink/money_extensions/badge.png)](https://coveralls.io/r/sealink/money_extensions)
+[![Dependency Status](https://gemnasium.com/sealink/money_extensions.png?travis)](https://gemnasium.com/sealink/money_extensions)
+[![Code Climate](https://codeclimate.com/github/sealink/money_extensions.png)](https://codeclimate.com/github/sealink/money_extensions)
 
 # DESCRIPTION
 
