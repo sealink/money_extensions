@@ -20,7 +20,7 @@ matrix:
       gemfile: gemfiles/rails2.gemfile
     - rvm: 2.2
       gemfile: gemfiles/rails2.gemfile
-script: "bundle exec rake rspec"
+script: "bundle exec rake spec"
 notifications:
   email:
     - support@travellink.com.au
