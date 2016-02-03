@@ -24,6 +24,7 @@ script: "bundle exec rake coverage"
 notifications:
   email:
     - support@travellink.com.au
-  flowdock: e69dcafad1fea15c6b8c76e9ced965af
+  flowdock:
+    secure: A0Fr9j0kvKPEWuPbJu/DPMYPvx98UI8k43adKN9UjTB6FRVAQM3kXmKJIL3A495scc2Civrg2KHDkbwNwVThY+HdLeU7q71Bm6obP6ZkCe43MIoc9NiVJymCNguku6+tLEyusdWIceFiBW7P5p/sU1QU66GFj1t4wNTpVq9A4Kw=
 sudo: false
 cache: bundler
