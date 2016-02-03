@@ -26,3 +26,4 @@ notifications:
     - support@travellink.com.au
   flowdock: e69dcafad1fea15c6b8c76e9ced965af
 sudo: false
+cache: bundler
