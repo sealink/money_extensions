@@ -1,12 +1,16 @@
 # coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'money_extensions/version'
+
 Gem::Specification.new do |spec|
   spec.name              = 'money_extensions'
-  spec.version           = '0.0.1'
   spec.authors  = ["Michael Noack", "Alessandro Berardi"]
   spec.email    = 'support@travellink.com.au'
   spec.description = "These are extensions from the money/currency classes."
   spec.summary     = "Set of extensions to the money gem used by TravelLink Technology."
   spec.homepage = 'http://github.com/sealink/money_extensions'
+  spec.version       = MoneyExtensions::VERSION
 
   spec.license  = 'MIT'
 

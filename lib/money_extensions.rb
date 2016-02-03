@@ -1,6 +1,4 @@
 module MoneyExtensions
-  VERSION = '0.0.1'
-
   require 'money'
   require 'money_extensions/array'
   require 'money_extensions/big_decimal'
