@@ -1,8 +1,0 @@
-source 'https://rubygems.org'
-gemspec :path => "../"
-
-gem 'money', '< 5.1', :platform => :ruby_18
-
-group :development, :test do
-  gem 'activerecord', '~> 2.3.0'
-end
