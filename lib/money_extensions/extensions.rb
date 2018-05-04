@@ -26,7 +26,7 @@ module Extensions
   # $1.01 splits [ 1,  1,  1] into [35,  33, 33]
   def split_between(params)
     #if just a number is passed in, then money is split equally
-    if params.is_a?(Fixnum)
+    if params.is_a?(Integer)
       divisor = params
       raise ArgumentError, "Can only split up over a positive number" if divisor < 1
 
@@ -51,7 +51,7 @@ module Extensions
         ::Money.new((self.cents * (ratio.to_f / total)).round)
       end
     else
-      raise "Either a fixnum or array has to be passed in for splitting money"
+      raise "Either a Integer or array has to be passed in for splitting money"
     end
 
     # Distribute rounding to max absolute to avoid a $0 amount getting the rounding
