@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module ActiveRecord
   module Extensions
-
     def self.included(base)
       base.extend(ClassMethods)
     end
@@ -18,20 +19,14 @@ module ActiveRecord
 
         field_name = "#{attr_name}_iso_code"
 
-        composed_of attr_name, :class_name => "Money::Currency",
-                    :mapping => [field_name, 'iso_code'],
-                    :allow_nil => true,
-                    :constructor => Proc.new{|value| Money::Currency.new(value) unless value.blank?}
+        composed_of attr_name, class_name: 'Money::Currency',
+                               mapping: [field_name, 'iso_code'],
+                               allow_nil: true,
+                               constructor: proc { |value| Money::Currency.new(value) unless value.blank? }
 
-        if Rails.version > '3'
-          scope :for_currency, lambda{ |currency|
-                               where(:currency_iso_code => currency.iso_code)
+        scope :for_currency, lambda { |currency|
+                               where(currency_iso_code: currency.iso_code)
                              }
-        else
-          named_scope :for_currency, lambda{ |currency|
-                                     {:conditions => {:currency_iso_code => currency.iso_code}}
-                                   }
-        end
 
         if options[:default]
           before_validation :set_default_currency
@@ -43,13 +38,9 @@ module ActiveRecord
           METHOD
         end
 
-        if options[:required]
-          validates_presence_of :currency_iso_code
-        end
+        validates_presence_of :currency_iso_code if options[:required]
       end
-
     end
-
   end
 end
 
