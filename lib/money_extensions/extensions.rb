@@ -17,7 +17,7 @@ module Extensions
   end
 
   def to_d_with_currency_hack
-    BigDecimal.new("#{cents/100.0}")
+    BigDecimal("#{cents/100.0}")
   end
 
   # Split the money between the specified number - and return an array of money

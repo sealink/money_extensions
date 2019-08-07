@@ -60,14 +60,14 @@ describe Money do
 
   it "should return a nice, Big Decimal if so converted" do
     money = Money.new(1428)
-    bigdecimal = BigDecimal.new("14.28")
+    bigdecimal = BigDecimal("14.28")
     expect(money.to_d).to eq bigdecimal
   end
 
   it "should be createable from strings and numbers" do
     money = Money.new(100)
     expect("1".to_money.cents).to eq money.cents
-    expect(BigDecimal.new('1').to_money.cents).to eq money.cents
+    expect(BigDecimal('1').to_money.cents).to eq money.cents
     expect(100.total_money.cents).to eq money.cents
   end
 
