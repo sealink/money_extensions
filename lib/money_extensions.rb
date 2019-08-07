@@ -14,4 +14,3 @@ module MoneyExtensions
   end
 
 end
-
