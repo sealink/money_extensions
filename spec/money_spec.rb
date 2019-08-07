@@ -114,4 +114,10 @@ describe Money do
     expect('1.00'.to_money.format(:hide_zero_cents)).to eq '$1'
   end
 
+  it 'should convert with to_s' do
+    expect('1.50'.to_money.to_s).to eq '$1.50'
+    expect('1'.to_money.to_s).to eq '$1.00'
+    expect('0.25'.to_money.to_s).to eq '$0.25'
+  end
+
 end
