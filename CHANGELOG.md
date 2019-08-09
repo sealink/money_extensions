@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* [TT-5845] Update to support money gems >= 6
+
 ## 0.1.0
 
 * Using Fixnum is deprecated

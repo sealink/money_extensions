@@ -1,5 +1,6 @@
-module MoneyField
+# frozen_string_literal: true
 
+module MoneyField
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -23,11 +24,9 @@ module MoneyField
       METHOD
     end
 
-
     def money_fields(*attributes)
-      attributes.each {|a| self.money_field(a)}
+      attributes.each { |a| money_field(a) }
     end
-
 
     def money(*fields)
       fields.each do |field|
@@ -38,7 +37,5 @@ module MoneyField
         METHOD
       end
     end
-
   end
-
 end

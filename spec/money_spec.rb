@@ -1,23 +1,6 @@
 require 'spec_helper'
 
 describe Money do
-  it "should get correct direction class" do
-    expect(Money.new(-1).direction_class).to eq 'negative'
-    expect(Money.new(0).direction_class).to eq 'zero'
-    expect(Money.new(1).direction_class).to eq 'positive'
-  end
-
-  it "should round correctly" do
-    money = Money.new(511)
-    expect(money.round.cents).to eq 500
-    expect(money.round(10).cents).to eq 510
-    expect(money.round(1).cents).to eq 511
-
-    expect(money.round(100, 'up').cents).to eq 600
-    expect(money.round(100, 'down').cents).to eq 500
-    expect(money.round(100, 'nearest').cents).to eq 500
-  end
-
   it "should deny division of money (to prevent rounding errors)" do
     expect { Money.new(50)/10 }.to raise_error(RuntimeError)
   end
@@ -38,7 +21,7 @@ describe Money do
     expect(money.split_between([1,2])).to eq [33,67].map{ |i| Money.new(i)}
 
     money_negative = Money.new(-100)
-    expect(money_negative.split_between(3)).to eq [-32,-34,-34].map{ |i| Money.new(i)}
+    expect(money_negative.split_between(3)).to eq [-34,-33,-33].map{ |i| Money.new(i)}
     expect(money_negative.split_between([1,2,2,5])).to eq [-10,-20,-20,-50].map{ |i| Money.new(i)}
     expect(money_negative.split_between([1,2])).to eq [-33,-67].map{ |i| Money.new(i)}
 
@@ -60,14 +43,14 @@ describe Money do
 
   it "should return a nice, Big Decimal if so converted" do
     money = Money.new(1428)
-    bigdecimal = BigDecimal.new("14.28")
+    bigdecimal = BigDecimal("14.28")
     expect(money.to_d).to eq bigdecimal
   end
 
   it "should be createable from strings and numbers" do
     money = Money.new(100)
     expect("1".to_money.cents).to eq money.cents
-    expect(BigDecimal.new('1').to_money.cents).to eq money.cents
+    expect(BigDecimal('1').to_money.cents).to eq money.cents
     expect(100.total_money.cents).to eq money.cents
   end
 
@@ -89,29 +72,4 @@ describe Money do
     expect(money_negative.abs).to eq money_positive
     expect(money_zero.abs).to eq money_zero
   end
-
-  it "should format the output correctly" do
-    expect(money_positive.format).to eq "<span class=\"money positive\">$1.00</span>"
-    expect(money_negative.format).to eq "<span class=\"money negative\">-$1.00</span>"
-    expect(money_zero.format).to eq "<span class=\"money zero\">$0.00</span>"
-
-    expect(money_positive.format(:html)).to eq "<span class=\"money positive\">$1.00</span>"
-    expect(money_negative.format(:html)).to eq "<span class=\"money negative\">-$1.00</span>"
-    expect(money_zero.format(:html)).to eq "<span class=\"money zero\">$0.00</span>"
-
-    expect(money_positive.format(:signed)).to eq "+$1.00"
-    expect(money_negative.format(:signed)).to eq "-$1.00"
-    expect(money_zero.format(:signed)).to eq "$0.00"
-
-    expect("1.50".to_money.format(:separator => '~')).to eq "$1~50"
-  end
-
-  it 'should format cents where appropriate' do
-    expect('1.50'.to_money.format(:no_cents)).to eq '$1'
-    expect('1.00'.to_money.format(:no_cents)).to eq '$1'
-
-    expect('1.50'.to_money.format(:hide_zero_cents)).to eq '$1.50'
-    expect('1.00'.to_money.format(:hide_zero_cents)).to eq '$1'
-  end
-
 end
