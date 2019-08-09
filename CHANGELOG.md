@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.0.0
 
 * [TT-5845] Update to support money gems >= 6
 
