@@ -20,10 +20,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'money', '>= 6.0.0'
-  spec.add_dependency 'activesupport', '>= 5'
+  spec.add_dependency 'activesupport', '>= 6'
 
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'coverage-kit'
@@ -31,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'activerecord'
-  spec.add_development_dependency 'travis'
+  spec.add_development_dependency 'pry-byebug'
 end

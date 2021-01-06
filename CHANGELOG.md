@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- [TT-8625] Update to build with github actions / ruby 3.0 / rails 6.1
+
 ## 1.0.0
 
 * [TT-5845] Update to support money gems >= 6
