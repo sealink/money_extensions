@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- [PLAT-183] Build with Ruby 3.1 / Rails 7 and publish coverage with github action
+
 ## 1.1.0
 
 - [TT-8625] Update to build with github actions / ruby 3.0 / rails 6.1
