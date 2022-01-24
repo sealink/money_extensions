@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
 
 - [PLAT-183] Build with Ruby 3.1 / Rails 7 and publish coverage with github action
 
