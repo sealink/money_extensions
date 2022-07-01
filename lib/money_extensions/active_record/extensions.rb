@@ -44,5 +44,7 @@ module ActiveRecord
   end
 end
 
-::ActiveRecord::Base.send(:include, MoneyField)
-::ActiveRecord::Base.send(:include, ActiveRecord::Extensions)
+ActiveSupport.on_load(:active_record) do
+  ::ActiveRecord::Base.send(:include, MoneyField)
+  ::ActiveRecord::Base.send(:include, ActiveRecord::Extensions)
+end
