@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.0
 
 - [PLAT-377] Improve bundler require time for the Gem
 
