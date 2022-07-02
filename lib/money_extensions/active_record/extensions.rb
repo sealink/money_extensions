@@ -2,9 +2,7 @@
 
 module ActiveRecord
   module Extensions
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
       # Assign a :currency (Money::Currency object) reader/writer for the given
@@ -44,5 +42,7 @@ module ActiveRecord
   end
 end
 
-::ActiveRecord::Base.send(:include, MoneyField)
-::ActiveRecord::Base.send(:include, ActiveRecord::Extensions)
+ActiveSupport.on_load(:active_record) do
+  ::ActiveRecord::Base.send(:include, MoneyField)
+  ::ActiveRecord::Base.send(:include, ActiveRecord::Extensions)
+end
