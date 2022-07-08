@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- [PLAT-401] Optimise split_between when we are doing so with numbers
+
 ## 1.3.0
 
 - [PLAT-377] Improve bundler require time for the Gem

@@ -1,9 +1,21 @@
 # frozen_string_literal: true
 
 module SplitBetween
+  extend ActiveSupport::Concern
+
   # Override division -- should not do it, but use split_between
   def /(*_params)
     raise "Division of money NOT allowed - use 'split_between' to avoid rounding errors"
+  end
+
+  module ClassMethods
+    def split_evenly_between(cents, number)
+      Money::Allocation.generate(cents, number).map { |num| Money.from_cents(num) }
+    end
+  end
+
+  def split_evenly_between(number)
+    Money.split_evenly_between(cents, number)
   end
 
   # Split the money between the specified number - and return an array of money
@@ -13,11 +25,7 @@ module SplitBetween
   def split_between(params)
     # if just a number is passed in, then money is split equally
     if params.is_a?(Integer)
-      divisor = params
-      raise ArgumentError, 'Can only split up over a positive number' if divisor < 1
-
-      rounded_split = lossy_divide(divisor)
-      results       = Array.new(divisor, rounded_split) # Create with 'divisor' num elements
+      results = split_evenly_between(params)
 
       # if an array of monies is passed in, then split in proportions
     elsif params.is_a?(Array)
@@ -36,13 +44,16 @@ module SplitBetween
       results.map! do |ratio|
         ::Money.new((cents * (ratio.to_f / total)).round)
       end
+
+      # Distribute rounding to max absolute to avoid a $0 amount getting the rounding
+      remainder = self - results.total_money
+      if !remainder.zero?
+        biggest_value_index = results.index(results.max_by(&:abs))
+        results[biggest_value_index] += remainder
+      end
     else
       raise 'Either a Integer or array has to be passed in for splitting money'
     end
-
-    # Distribute rounding to max absolute to avoid a $0 amount getting the rounding
-    biggest_value_index = results.index(results.max_by(&:abs))
-    results[biggest_value_index] += self - results.total_money
 
     results
   end

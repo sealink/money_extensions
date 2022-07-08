@@ -5,6 +5,26 @@ describe Money do
     expect { Money.new(50)/10 }.to raise_error(RuntimeError)
   end
 
+  it 'should split evenly between' do
+    money = Money.new(100)
+
+    expect(money.split_evenly_between(3)).to eq [34,33,33].map{ |i| Money.new(i) }
+    expect(money.split_evenly_between(3).sum(Money.zero)).to eq money
+
+    expect(money.split_evenly_between(6)).to eq [17,17,17,17,16,16].map{ |i| Money.new(i) }
+    expect(money.split_evenly_between(6).sum(Money.zero)).to eq money
+  end
+
+  it 'should split evenly between negative numbers' do
+    money = Money.new(-100)
+
+    expect(money.split_evenly_between(3)).to eq [-33,-33,-34].map{ |i| Money.new(i) }
+    expect(money.split_evenly_between(3).sum(Money.zero)).to eq money
+
+    expect(money.split_evenly_between(6)).to eq [-16,-16,-17,-17,-17,-17].map{ |i| Money.new(i) }
+    expect(money.split_evenly_between(6).sum(Money.zero)).to eq money
+  end
+
   it "should split money correctly" do
     money = Money.new(100)
 
@@ -21,7 +41,7 @@ describe Money do
     expect(money.split_between([1,2])).to eq [33,67].map{ |i| Money.new(i)}
 
     money_negative = Money.new(-100)
-    expect(money_negative.split_between(3)).to eq [-34,-33,-33].map{ |i| Money.new(i)}
+    expect(money_negative.split_between(3)).to eq [-33,-33,-34].map{ |i| Money.new(i)}
     expect(money_negative.split_between([1,2,2,5])).to eq [-10,-20,-20,-50].map{ |i| Money.new(i)}
     expect(money_negative.split_between([1,2])).to eq [-33,-67].map{ |i| Money.new(i)}
 
