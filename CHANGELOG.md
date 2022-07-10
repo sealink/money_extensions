@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - [PLAT-401] Optimise split_between when we are doing so with numbers
 
