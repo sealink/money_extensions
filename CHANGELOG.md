@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- [PLAT-1175] Update to Ruby 3.2
+
 ## 1.4.0
 
 - [PLAT-401] Optimise split_between when we are doing so with numbers
